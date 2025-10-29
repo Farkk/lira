@@ -4,9 +4,6 @@ wp-config.php
 # macOS
 .DS_Store
 
-# WordPress cache and uploads
-wp-content/cache/
-
 # Log files
 *.log
 
