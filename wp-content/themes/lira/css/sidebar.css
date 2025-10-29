@@ -1,0 +1,447 @@
+aside.sidebar {
+  margin-top: 28px;
+  margin-bottom: 50px;
+}
+aside.sidebar .sidebar-wrapper {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+aside.sidebar .sidebar-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  margin-bottom: 40px;
+}
+aside.sidebar .service-info-block {
+  position: relative;
+  border-radius: 20px;
+  background-color: #F2F4F6;
+  padding-top: 32px;
+  padding-right: 20px;
+  padding-bottom: 27px;
+  padding-left: 20px;
+}
+aside.sidebar .service-bages {
+  position: absolute;
+  top: -10px;
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+  width: calc(100% - 40px);
+}
+aside.sidebar .service-bages .servicebage {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  min-height: 28px;
+  padding: 7px 12px;
+}
+aside.sidebar .service-bages .servicebage span.icon-info {
+  font-size: 14px;
+}
+aside.sidebar .service-bages .servicebage span.icon-percent {
+  font-size: 12px;
+}
+aside.sidebar .service-bages .servicebage.servicebage-green {
+  background-color: #8BA475;
+  color: #fff;
+}
+aside.sidebar .service-bages .servicebage.servicebage-red {
+  background-color: #EE422C;
+  color: #fff;
+}
+aside.sidebar .service-prices .block-price {
+  margin-bottom: 18px;
+}
+aside.sidebar .service-prices .block-price:last-child {
+  margin-bottom: 0;
+}
+aside.sidebar .service-prices .block-price-title {
+  font-size: 13px;
+  line-height: 32px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+aside.sidebar .service-prices .block-price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+aside.sidebar .service-prices .block-price .price {
+  display: inline-block;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 32px;
+}
+aside.sidebar .service-prices .block-price .sale-price {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  background-color: #FFFFFF;
+  padding: 8px 13px;
+  gap: 5px;
+  border-radius: 13px;
+  flex-shrink: 0;
+}
+aside.sidebar .service-prices .block-price .sale-price p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  color: var(--altText);
+  background-color: #EFEFEF;
+}
+aside.sidebar .service-prices .block-price s {
+  font-size: 14px;
+  line-height: 32px;
+  color: rgba(0, 0, 0, 0.6);
+}
+aside.sidebar .service-prices .block-price p {
+  font-size: 14px;
+  line-height: 22px;
+}
+aside.sidebar .service-footer {
+  margin-top: 42px;
+}
+aside.sidebar .service-footer p {
+  font-size: 13px;
+  line-height: 22px;
+}
+aside.sidebar .service-order-box {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 4px 5px 4px 20px;
+}
+aside.sidebar .service-order-box p {
+  font-size: 14px;
+  line-height: 20.5px;
+}
+aside.sidebar .service-order-box button.button-primary {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.5px;
+  padding: 11px 16px;
+  border-radius: 16px;
+  gap: 8px;
+}
+aside.sidebar .service-order-box button.button-primary [class^=icon-],
+aside.sidebar .service-order-box button.button-primary [class*=" icon-"] {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-weight: normal;
+}
+aside.sidebar .service-order-box a.button-primary {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20.5px;
+  padding: 11px 16px;
+  border-radius: 16px;
+  gap: 8px;
+}
+aside.sidebar .service-order-box a.button-primary [class^=icon-],
+aside.sidebar .service-order-box a.button-primary [class*=" icon-"] {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+  font-weight: normal;
+}
+aside.sidebar .author-info {
+  padding: 50px 20px 30px 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.05);
+}
+aside.sidebar .author-info__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px 36px;
+  margin-bottom: 14px;
+}
+aside.sidebar .author-info__head p {
+  font-size: 15px;
+  line-height: 23px;
+}
+aside.sidebar .author-info .author-photo {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  outline: 6px solid #EFEFEF;
+}
+aside.sidebar .author-info .author-photo img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+aside.sidebar .author-info__text p {
+  font-size: 15px;
+  line-height: 23px;
+  margin-bottom: 10px;
+}
+aside.sidebar .author-info__text p b {
+  font-weight: 500;
+}
+aside.sidebar .author-info__text a {
+  font-size: 15px;
+  line-height: 23px;
+  color: var(--linksColor);
+  -webkit-text-decoration: underline 1px;
+          text-decoration: underline 1px;
+  text-underline-offset: 2px;
+  transition: color 0.12s ease-in-out;
+}
+aside.sidebar .author-info__text a + p {
+  margin-top: 38px;
+  margin-bottom: 30px;
+}
+@media (any-hover: hover) {
+  aside.sidebar .author-info__text a:hover {
+    color: #3460A2;
+    transition: color 0.12s ease-in-out;
+  }
+}
+aside.sidebar .author-info__foot {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+aside.sidebar .author-info .author-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 20.5px;
+  transition: background-color 0.25s ease-in-out;
+}
+aside.sidebar .author-info .author-btn [class^=icon-],
+aside.sidebar .author-info .author-btn [class*=" icon-"] {
+  opacity: 0.5;
+}
+aside.sidebar .author-info .author-btn.author-wpp {
+  background-color: #25D366;
+  color: #fff;
+}
+aside.sidebar .author-info .author-btn.author-wpp [class^=icon-],
+aside.sidebar .author-info .author-btn.author-wpp [class*=" icon-"] {
+  font-size: 17px;
+}
+@media (any-hover: hover) {
+  aside.sidebar .author-info .author-btn.author-wpp:hover {
+    background-color: #1fba58;
+  }
+}
+aside.sidebar .author-info .author-btn.author-tg {
+  background-color: #0088CC;
+  color: #fff;
+}
+aside.sidebar .author-info .author-btn.author-tg [class^=icon-],
+aside.sidebar .author-info .author-btn.author-tg [class*=" icon-"] {
+  font-size: 15px;
+}
+@media (any-hover: hover) {
+  aside.sidebar .author-info .author-btn.author-tg:hover {
+    background-color: #007cba;
+  }
+}
+@media (any-hover: hover) {
+  aside.sidebar .author-info .author-btn {
+    transition: background-color 0.25s ease-in-out;
+  }
+}
+@media screen and (min-width: 1023px) {
+  aside.sidebar .sidebar-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0;
+    margin-left: 0;
+    box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.04);
+  }
+  aside.sidebar .sidebar-title {
+    width: 100%;
+  }
+  aside.sidebar .sidebar-block {
+    flex: 1;
+  }
+  aside.sidebar .service-info-block {
+    margin-left: -20px;
+    order: 2;
+  }
+  aside.sidebar .author-info {
+    padding: 50px 60px 30px 20px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: none;
+    border-top: 1px solid #F2F4F6;
+    border-bottom: 1px solid #F2F4F6;
+    border-left: 1px solid #F2F4F6;
+    border-right: 1px solid #F2F4F6;
+  }
+}
+@media screen and (min-width: 1240px) {
+  aside.sidebar {
+    margin-top: 90px;
+    margin-bottom: 70px;
+  }
+  aside.sidebar .sidebar-title {
+    font-size: 27px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 50px;
+  }
+  aside.sidebar .service-info-block {
+    max-width: 480px;
+  }
+  aside.sidebar .author-info {
+    padding: 38px 60px 46px 40px;
+  }
+  aside.sidebar .author-info__head {
+    margin-bottom: 25px;
+  }
+  aside.sidebar .author-info__head p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  aside.sidebar .author-info__text p {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  aside.sidebar .author-info__text a {
+    font-size: 17px;
+    line-height: 25px;
+  }
+  aside.sidebar .author-info__text a + p {
+    margin-top: 25px;
+  }
+  aside.sidebar .author-info .author-btn {
+    padding: 11px 20px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+@media screen and (min-width: 1023px) {
+  body.single-post aside.sidebar {
+    margin-bottom: 40px;
+  }
+}
+@media screen and (min-width: 1240px) {
+  aside.sidebar .service-info-block {
+    padding: 33px 30px 40px 33px;
+  }
+  aside.sidebar .service-bages {
+    width: calc(100% - 70px);
+  }
+  aside.sidebar .service-bages .servicebage {
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    min-height: 32px;
+    padding: 7px 12px;
+  }
+  aside.sidebar .service-prices .block-price-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  aside.sidebar .service-prices .block-price {
+    margin-bottom: 35px;
+  }
+  aside.sidebar .service-prices .block-price .price {
+    font-size: 36px;
+    font-weight: 800;
+  }
+  aside.sidebar .service-prices .block-price .sale-price {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  aside.sidebar .service-prices .block-price .sale-price p {
+    margin-bottom: 0;
+  }
+  aside.sidebar .service-prices .block-price s {
+    font-size: 20px;
+  }
+  aside.sidebar .service-prices .block-price p {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  aside.sidebar .service-footer p {
+    font-size: 17px;
+    line-height: 25px;
+    font-weight: 600;
+  }
+  aside.sidebar .service-order-box {
+    padding: 6px 14px 6px 20px;
+  }
+  aside.sidebar .service-order-box p {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  aside.sidebar .service-order-box button.button-primary {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 11px 20px;
+  }
+  aside.sidebar .service-order-box a.button-primary {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 11px 20px;
+  }
+}
+@media screen and (min-width: 1360px) {
+  aside.sidebar {
+    flex: 1 142px;
+    margin-top: 8px;
+  }
+  aside.sidebar .sidebar-block {
+    flex: none;
+  }
+  aside.sidebar .service-info-block {
+    order: 0;
+    margin-left: 0;
+  }
+  aside.sidebar .sidebar-wrapper {
+    position: relative;
+    flex-direction: column;
+    gap: 45px;
+    box-shadow: none;
+    height: 100%;
+  }
+  aside.sidebar .author-info {
+    position: sticky;
+    top: 170px;
+    border-radius: 32px;
+    border-right: 1px solid #F2F4F6;
+  }
+  body.topbaractive aside.sidebar .author-info {
+    top: 235px;
+  }
+}
+@media screen and (min-width: 1720px) {
+  aside.sidebar .sidebar-title {
+    font-size: 28px;
+    line-height: normal;
+  }
+}

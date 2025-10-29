@@ -1,0 +1,171 @@
+.howtovideos {
+    margin-bottom: 75px;
+
+
+    &__title {
+        text-align: center;
+        margin-bottom: 35px;
+        font-weight: bold;
+    }
+
+
+
+    .videolist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px 72px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .video-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 280px;
+        border-radius: 20px;
+        overflow: hidden;
+        min-height: 158px;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            -o-object-fit: cover;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+            transition: transform 0.25s ease-in-out;
+        }
+    }
+
+
+    .videocard {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 280px;
+        border-radius: 20px;
+        overflow: hidden;
+        min-height: 158px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 16/9;
+            transition: transform .25s ease-in-out;
+        }
+
+        @media (any-hover: hover) {
+            &:hover {
+                img {
+                    transform: scale(1.05);
+                    transition: transform .25s ease-in-out;
+                }
+            }
+        }
+
+    }
+
+
+    &__info {
+        margin-top: 32px;
+
+        &-title {
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 29px;
+            margin-bottom: 12px;
+        }
+
+        &-text {
+            font-size: 15px;
+            line-height: 22px;
+
+            @media screen and (min-width: 767px) {
+                column-count: 2;
+                column-gap: 60px;
+            }
+        }
+
+        &-link {
+            display: block;
+            margin-bottom: 12px;
+            color: #000;
+
+            u {
+                text-underline-offset: 2px;
+                color: var(--linksColor);
+            }
+
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+
+
+    @media screen and (min-width: 1240px) {
+        // padding-top: 112px;
+        margin-bottom: 120px;
+
+        &__title {
+            font-size: 28px;
+        }
+
+
+
+        .videocard {
+            border-radius: 40px;
+        }
+
+        .video-box {
+            border-radius: 40px;
+        }
+
+        &__info {
+            margin-top: 72px;
+
+            &-title {
+                font-size: 23px;
+                margin-bottom: 30px;
+            }
+
+            &-text {
+                font-size: 23px;
+                line-height: 29px;
+                column-gap: 50px;
+            }
+
+            &-link {
+                margin-bottom: 18px;
+                
+                u {
+                    text-decoration: underline 1px;
+                    text-underline-offset: 4px;
+                    transition: color .12s ease-in-out;
+                }
+
+                &:hover {
+                    u {
+                        color: #3460A2;
+                        transition: color .12s ease-in-out;
+                    }
+                 
+                }
+            }
+        }
+
+    }
+
+
+}
+
+.slider-section + .howtovideos {
+    padding-top: 65px;
+
+    @media screen and (min-width: 1240px) {
+        padding-top: 112px;
+    }
+}

@@ -1,0 +1,164 @@
+.reviews {
+  margin-bottom: 80px;
+  overflow: hidden;
+}
+.reviews__heading {
+  text-align: center;
+  max-width: 670px;
+  width: 100%;
+  margin: 0 auto 35px auto;
+}
+.reviews__heading p {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--altText);
+}
+.reviews__title {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 26px;
+  margin-bottom: 10px;
+}
+.reviews__list .swiper.reviews-slider {
+  margin-right: -20px;
+  padding-left: 20px;
+  margin-left: -20px;
+}
+.reviews__list .slider-navigation {
+  display: none;
+}
+.reviews__list .swiper-pagination {
+  display: none;
+}
+.reviews__list .swiper-scrollbar.swiper-scrollbar-horizontal {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 50;
+  height: var(--swiper-scrollbar-size, 4px);
+  width: calc(100% - 2 * var(--swiper-scrollbar-sides-offset, 1%));
+  background: transparent;
+  margin-top: 46px;
+}
+.reviews__list .swiper-scrollbar-drag {
+  background-color: #DDE1E7;
+  border-radius: 6px;
+}
+.reviews__list .swiper-wrapper {
+  align-items: stretch;
+  height: auto;
+}
+.reviews__list .swiper-slide.reviews-item {
+  max-width: 255px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+  height: auto;
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.12);
+}
+.reviews__list .swiper-slide.reviews-item .reviews-item__img {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.reviews__list .swiper-slide.reviews-item .reviews-item__img img {
+  transition: transform 0.25s ease-in-out;
+}
+@media (any-hover: hover) {
+  .reviews__list .swiper-slide:hover .reviews-item__img img {
+    transform: scale(1.05);
+    transition: transform 0.25s ease-in-out;
+  }
+}
+@media screen and (min-width: 1240px) {
+  .reviews {
+    margin-bottom: 114px;
+  }
+  .reviews__heading {
+    margin: 0 auto 62px auto;
+  }
+  .reviews__heading p {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .reviews__title {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+  .reviews__list .swiper.reviews-slider {
+    overflow: visible;
+    margin-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+  .reviews__list .slider-navigation {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 42px;
+  }
+  .reviews__list .slider-navigation .swiper-button-next,
+  .reviews__list .slider-navigation .swiper-button-prev {
+    position: static;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    margin: 0;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #DDE1E7;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  }
+  .reviews__list .slider-navigation .swiper-button-next:after,
+  .reviews__list .slider-navigation .swiper-button-prev:after {
+    font-family: "icons";
+    font-weight: normal;
+    content: "\e91a";
+    font-size: 17px;
+    color: #5D6571;
+    transition: color 0.3s ease-in-out;
+  }
+  .reviews__list .slider-navigation .swiper-button-prev:after {
+    transform: rotate(180deg);
+  }
+  .reviews__list .slider-navigation .swiper-button-next.swiper-button-disabled,
+  .reviews__list .slider-navigation .swiper-button-prev.swiper-button-disabled {
+    opacity: 1;
+  }
+  .reviews__list .slider-navigation .swiper-button-next.swiper-button-disabled::after,
+  .reviews__list .slider-navigation .swiper-button-prev.swiper-button-disabled::after {
+    color: #DDE1E7;
+  }
+}
+@media screen and (min-width: 1240px) and (any-hover: hover) {
+  .reviews__list .slider-navigation .swiper-button-next:hover,
+  .reviews__list .slider-navigation .swiper-button-prev:hover {
+    background-color: #5B88CD;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    border-color: #5B88CD;
+  }
+  .reviews__list .slider-navigation .swiper-button-next:hover::after,
+  .reviews__list .slider-navigation .swiper-button-prev:hover::after {
+    color: #fff;
+    transition: color 0.3s ease-in-out;
+  }
+}
+@media screen and (min-width: 1240px) {
+  .reviews__list .swiper-scrollbar {
+    display: none;
+  }
+  .reviews__list .swiper-pagination {
+    display: flex;
+    margin-top: 44px;
+  }
+}

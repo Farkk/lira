@@ -1,0 +1,396 @@
+body.single-serives {
+
+    .service-fullinfo {
+        margin-bottom: 35px;
+    }
+
+    .service-benefits {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 26px;
+        overflow-y: auto;
+        padding-bottom: 10px;
+        margin-bottom: -10px;
+
+        &__item {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            gap: 16px;
+
+            max-width: 214px;
+        }
+
+        &__icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--accentColor);
+        }
+
+        &__text {
+            font-size: 14px;
+            line-height: 19px;
+        }
+    }
+
+    .entry-content {
+
+        ol {
+            list-style: none;
+            padding: 0;
+
+            li {
+                position: relative;
+                font-size: 16px;
+                margin-bottom: 18px;
+                line-height: 22px;
+                padding-left: 32px;
+
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    top: 0px;
+                    font-family: 'icons';
+                    content: "\e90e";
+                    margin-right: 14px;
+                    font-size: 18px;
+                    color: var(--linksColor);
+                }
+
+                a {
+                    color: var(--linksColor);
+                    text-decoration: underline 1px;
+                    text-underline-offset: 2px;
+                    transition: color .12s ease-in-out;
+
+                    @media (any-hover: hover) {
+                        &:hover {
+                            color: #3460A2;
+                            transition: color .12s ease-in-out;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .service-advantages-slider {
+
+        .swiper-slide {
+            position: relative;
+            padding-left: 24px;
+
+            span {
+                display: block;
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 24px;
+                margin-bottom: 14px;
+            }
+
+            p {
+                font-size: 15px;
+                line-height: 23px;
+                margin-bottom: 0;
+                hyphens: auto;
+            }
+
+            &::before {
+                position: absolute;
+                content: '';
+                left: 0;
+                top: 0px;
+                width: 4px;
+                height: 43px;
+                border-radius: 6px;
+                background-color: var(--accentColor);
+            }
+        }
+
+    }
+
+    .service-fullinfo {
+        .tabs {
+            .tabs-nav {
+                padding: 0 20px;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 16px 20px;
+                margin-bottom: 48px;
+
+                li {
+                    font-size: 14px;
+                    line-height: 20px;
+                    font-weight: 400;
+                    color: var(--altText);
+                    text-align: center;
+                    background-color: transparent;
+                    border: 1px solid #DDE1E7;
+                    padding: 6px 16px;
+                    border-radius: 6px;
+                    overflow: hidden;
+
+                    &.active {
+                        color: var(--accentColor);
+                        border-color: var(--accentColor);
+                    }
+                }
+            }
+        }
+
+
+        &__container {
+            h2 {
+                margin-bottom: 18px;
+            }
+
+            p {
+            a {
+                color: var(--linksColor);
+                text-decoration: underline 1px;
+                text-underline-offset: 2px;
+                transition: color .12s ease-in-out;
+
+                @media (any-hover: hover) {
+                    &:hover {
+                        color: #3460A2;
+                        transition: color .12s ease-in-out;
+                    }
+                }
+            }
+            }
+          
+        }
+
+        &__text {}
+
+
+        .service-fullinfo__container {
+            h2+p:has(img) img {
+                margin-top: 0px;
+            }
+
+            h3+p:has(img) img {
+                margin-top: 0px;
+            }
+
+            h3 {
+                margin: 18px 0;
+            }
+        }
+
+
+    }
+
+
+
+
+    @media screen and (min-width: 1240px) {
+        .service-fullinfo {
+            margin-bottom: 76px;
+
+            .tabs {
+                .tabs-nav {
+                    gap: 16px 46px;
+
+                    li {
+                        font-size: 19px;
+                        line-height: 25px;
+                        font-weight: 600;
+                        padding: 16px 32px;
+
+                        @media (any-hover: hover) {
+                            &:hover {
+                                border-color: var(--accentColor);
+                                color: var(--accentColor);
+                                transition: all .12s ease-in-out;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .entry-content {
+            ol {
+                li {
+                    font-size: 19px;
+                    margin-bottom: 10px;
+                    line-height: 22px;
+                }
+            }
+        }
+
+        .service-benefits {
+            flex-wrap: wrap;
+            gap: 12px 30px;
+            overflow-y: visible;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+        }
+
+        .service-benefits__icon {
+            width: 51px;
+            height: 51px;
+            border-width: 2px;
+        }
+
+        .service-benefits__text {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        .service-benefits__item {
+            gap: 18px;
+            max-width: 235px;
+        }
+
+        .service-advantages-slider {
+            .swiper-wrapper {
+                flex-wrap: wrap;
+                gap: 74px 90px;
+            }
+
+            .swiper-slide {
+                flex: 1 480px;
+
+                span {
+                    font-size: 18px;
+                    line-height: 28px;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
+
+                p {
+                    font-size: 17px;
+                    line-height: 27px;
+                }
+            }
+
+            .swiper-pagination {
+                display: none;
+            }
+        }
+
+
+
+
+
+        .service-fullinfo__container {
+            h2 {
+                font-size: 27px;
+                line-height: 34px;
+                margin-bottom: 28px;
+            }
+
+            h3 {
+                line-height: 60px;
+            }
+
+            p {
+                font-size: 20px;
+                line-height: 32px;
+            }
+
+            ul.list {
+                columns: 1;
+                column-gap: 0px;
+
+                li {
+                    max-width: 835px;
+                }
+            }
+        }
+    }
+
+
+
+    @media screen and (min-width: 1720px) {
+
+        .entry-content {
+            ol {
+                li {
+                    font-size: 20px;
+                    line-height: 26px;
+                }
+            }
+        }
+
+
+        .service-benefits__text {
+            font-size: 17px;
+        }
+
+        .service-benefits__item {
+            max-width: 260px;
+        }
+
+        .service-advantages-slider {
+            .swiper-wrapper {
+                gap: 60px;
+            }
+
+            .swiper-slide {
+                flex: 1 250px;
+
+                span {
+                    font-size: 19px;
+                }
+
+                p {
+                    font-size: 18px;
+                }
+            }
+
+            .swiper-pagination {
+                display: none;
+            }
+        }
+
+        .service-fullinfo {
+            margin-top: 74px;
+
+            .tabs {
+                .tabs-nav {
+                    gap: 16px 36px;
+                    margin-bottom: 90px;
+
+                    li {
+                        font-size: 20px;
+                        line-height: 25px;
+                    }
+                }
+            }
+
+        }
+
+
+
+        .service-fullinfo__container {
+            h2 {
+                font-size: 28px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 21px;
+            }
+        }
+    }
+}

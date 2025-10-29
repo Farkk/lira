@@ -1,0 +1,158 @@
+.myservices {
+    margin-bottom: 86px;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        font-size: 23px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 44px;
+    }
+
+
+    &__contactinfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 62px;
+
+        .contactinfo-photo {
+            display: flex;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            outline: 9px solid #F6F7FB;
+            margin-bottom: 37px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .contactinfo-quote {
+            margin-bottom: 37px;
+
+            p {
+                font-size: 14px;
+                line-height: 23px;
+                font-weight: 200;
+                font-style: italic;
+                text-align: center;
+
+                u {
+                    text-underline-offset: 3px;
+                }
+            }
+
+            .quote-desktop {
+                display: none;
+            }
+
+        }
+
+    }
+
+    @media screen and (min-width: 1240px) {
+        margin-bottom: 110px;
+        
+        &__title {
+            font-size: 50px;
+            font-weight: 800;
+            margin-bottom: 70px;
+        }
+
+        .swiper-pagination {
+            display: none;
+        }
+
+        .swiper-wrapper {
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        &__contactinfo {
+            .contactinfo-photo {
+                width: 235px;
+                height: 235px;
+                outline: 12px solid #F6F7FB;
+                margin-bottom: 44px;
+            }
+
+            .contactinfo-quote {
+                p {
+                    display: none;
+                }
+
+                .quote-desktop {
+                    display: flex;
+                }
+
+            }
+
+        }
+    }
+}
+
+.swiper-slide.myservices-item {
+    display: flex;
+}
+
+.myservices-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #F6F7FB;
+        outline: 5px solid #FFFBFB;
+        margin-bottom: 15px;
+    }
+
+    &__title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    &__desc {
+        text-align: center;
+        font-size: 15px;
+        line-height: 24px;
+        color: var(--altText);
+    }
+
+    @media screen and (min-width: 1240px) {
+        flex: 1 220px;
+        align-items: flex-start;
+        margin-right: 0 !important;
+        max-width: 280px;
+
+        &__title {
+            font-size: 42px;
+            line-height: 100%;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        &__desc {
+            text-align: left;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+    }
+
+
+}

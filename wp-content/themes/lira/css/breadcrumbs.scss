@@ -1,0 +1,68 @@
+.breadcrumbs {
+    padding-top: 15px;
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    &__item {
+        a {
+            font-size: 13px;
+            color: var(--altText);
+            text-decoration: none;
+
+            u {
+                text-decoration: 1px underline;
+                text-underline-offset: 3px;
+                text-decoration-color: transparent;
+            }
+
+            &::after {
+                content: "— ";
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 1;
+                margin: 0 5px;
+            }
+
+
+            @media (any-hover: hover) {
+                &:hover {
+                    u {
+                        text-decoration-color: inherit;
+                        transition:  text-decoration-color .25s ease-in-out;
+                    }
+
+                }
+            }
+        }
+
+        &:last-child {
+            a {
+                &::after {
+                    display: none;
+                }
+            }
+        }
+        
+    }
+
+    @media screen and (min-width: 1240px) {
+        padding-top: 40px;
+
+        &__item {
+            a {
+                font-size: 17px;
+            }
+        }
+        
+    }
+
+     @media screen and (min-width: 1720px) {
+        padding-top: 72px;
+
+     }
+}

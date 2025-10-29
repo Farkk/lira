@@ -1,0 +1,137 @@
+.howtovideos {
+  margin-bottom: 75px;
+}
+.howtovideos__title {
+  text-align: center;
+  margin-bottom: 35px;
+  font-weight: bold;
+}
+.howtovideos .videolist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 72px;
+  width: 100%;
+  max-width: 100%;
+}
+.howtovideos .video-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 158px;
+}
+.howtovideos .video-box iframe {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+  transition: transform 0.25s ease-in-out;
+}
+.howtovideos .videocard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 158px;
+}
+.howtovideos .videocard img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  aspect-ratio: 16/9;
+  transition: transform 0.25s ease-in-out;
+}
+@media (any-hover: hover) {
+  .howtovideos .videocard:hover img {
+    transform: scale(1.05);
+    transition: transform 0.25s ease-in-out;
+  }
+}
+.howtovideos__info {
+  margin-top: 32px;
+}
+.howtovideos__info-title {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 29px;
+  margin-bottom: 12px;
+}
+.howtovideos__info-text {
+  font-size: 15px;
+  line-height: 22px;
+}
+@media screen and (min-width: 767px) {
+  .howtovideos__info-text {
+    -moz-column-count: 2;
+         column-count: 2;
+    -moz-column-gap: 60px;
+         column-gap: 60px;
+  }
+}
+.howtovideos__info-link {
+  display: block;
+  margin-bottom: 12px;
+  color: #000;
+}
+.howtovideos__info-link u {
+  text-underline-offset: 2px;
+  color: var(--linksColor);
+}
+.howtovideos__info-link:last-child {
+  margin-bottom: 0;
+}
+@media screen and (min-width: 1240px) {
+  .howtovideos {
+    margin-bottom: 120px;
+  }
+  .howtovideos__title {
+    font-size: 28px;
+  }
+  .howtovideos .videocard {
+    border-radius: 40px;
+  }
+  .howtovideos .video-box {
+    border-radius: 40px;
+  }
+  .howtovideos__info {
+    margin-top: 72px;
+  }
+  .howtovideos__info-title {
+    font-size: 23px;
+    margin-bottom: 30px;
+  }
+  .howtovideos__info-text {
+    font-size: 23px;
+    line-height: 29px;
+    -moz-column-gap: 50px;
+         column-gap: 50px;
+  }
+  .howtovideos__info-link {
+    margin-bottom: 18px;
+  }
+  .howtovideos__info-link u {
+    -webkit-text-decoration: underline 1px;
+            text-decoration: underline 1px;
+    text-underline-offset: 4px;
+    transition: color 0.12s ease-in-out;
+  }
+  .howtovideos__info-link:hover u {
+    color: #3460A2;
+    transition: color 0.12s ease-in-out;
+  }
+}
+
+.slider-section + .howtovideos {
+  padding-top: 65px;
+}
+@media screen and (min-width: 1240px) {
+  .slider-section + .howtovideos {
+    padding-top: 112px;
+  }
+}

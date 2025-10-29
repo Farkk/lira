@@ -1,0 +1,16 @@
+# WordPress Configuration
+wp-config.php
+
+# macOS
+.DS_Store
+
+# WordPress cache and uploads
+wp-content/cache/
+wp-content/uploads/
+
+# Log files
+*.log
+
+# Environment files
+.env
+.env.local
