@@ -6,7 +6,6 @@ wp-config.php
 
 # WordPress cache and uploads
 wp-content/cache/
-wp-content/uploads/
 
 # Log files
 *.log
