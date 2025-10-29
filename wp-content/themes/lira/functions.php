@@ -85,10 +85,12 @@ function cf7_generate_contact_links($contact_form)
     if (!empty($clean_phone) && !empty($channel)) {
       // Формируем ссылку в зависимости от выбранного канала
       if (stripos($channel, 'Whatsapp') !== false || stripos($channel, 'WhatsApp') !== false) {
+        // WhatsApp всегда без плюса
         $whatsapp = 'https://wa.me/' . $clean_phone;
         $links = '<a href="' . $whatsapp . '">Написать в WhatsApp</a>';
       } elseif (stripos($channel, 'Telegram') !== false) {
-        $telegram = 'https://t.me/' . $clean_phone;
+        // Telegram всегда с плюсом
+        $telegram = 'https://t.me/+' . $clean_phone;
         $links = '<a href="' . $telegram . '">Написать в Telegram</a>';
       } elseif (stripos($channel, 'Телефон') !== false || stripos($channel, 'Telefon') !== false) {
         $links = '<a href="tel:+' . $clean_phone . '">Позвонить: ' . $phone . '</a>';

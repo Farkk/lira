@@ -7,12 +7,15 @@ $discount = get_field('price_discount');
 $has_discount = !empty($discount) && $discount > 0;
 $discounted_price = $has_discount ? $price - ($price * $discount / 100) : $price;
 
+$desc_old = get_field('desc_old');
+
 $price_children = get_field('price_children');
 $desc_children = get_field('desc_children');
 $text_children = get_field('text_children');
 
 $pay = get_field('pay');
 $pay_link = get_field('pay_link');
+$text_before_button = get_field('text_before_button');
 $order_button_text = get_field('order_button_text'); // Текст кнопки "Заказать услугу"
 
 // Проверка: есть ли хоть что-то для отображения в блоке service-info-block
@@ -80,16 +83,25 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
         <div class="sidebar-wrapper">
           <? if ($has_service_info): ?>
             <section id="block-1" class="sidebar-block service-info-block">
-              <div class="service-bages">
-                <span class="servicebage servicebage-green">
-                  <span class="icon-info"></span>
-                  Новинка
-                </span>
-                <span class="servicebage servicebage-red">
-                  <span class="icon-percent"></span>
-                  Акция %
-                </span>
-              </div>
+              <?
+              // Получаем бейджи текущего поста
+              $badges = get_the_terms(get_the_ID(), 'service_badge');
+              ?>
+              <? if ($badges && !is_wp_error($badges)): ?>
+                <div class="service-bages">
+                  <? foreach ($badges as $badge):
+                    $badge_color = get_field('badge_color', 'service_badge_' . $badge->term_id); // CSS класс, например: servicebage-red
+                    $badge_icon = get_field('badge_icon', 'service_badge_' . $badge->term_id); // CSS класс иконки, например: icon-percent
+                  ?>
+                    <span class="servicebage <?= $badge_color ? $badge_color : 'servicebage-green' ?>">
+                      <? if ($badge_icon): ?>
+                        <span class="<?= $badge_icon ?>"></span>
+                      <? endif; ?>
+                      <?= $badge->name ?>
+                    </span>
+                  <? endforeach; ?>
+                </div>
+              <? endif; ?>
 
               <? if (!empty($price) || !empty($price_children)): ?>
                 <div class="service-prices">
@@ -103,7 +115,9 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
                           <s><?= $discounted_price ?> <span><span>₽</span></span></s>
                         <? endif; ?>
                       </div>
-                      <p>взрослым</p>
+                      <? if ($desc_old != ''): ?>
+                        <p><?= $desc_old ?></p>
+                      <? endif; ?>
                     </div>
                   <? endif; ?>
 
@@ -129,10 +143,12 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
 
                   <? if (!empty($order_button_text)): ?>
                     <div class="service-order-box">
-                      <p><?= $order_button_text ?></p>
-                      <a href="<?= $pay_link != '' ? $pay_link : '#callback' ?>" class="button button-primary fancybox">
+                      <? if ($text_before_button != ''): ?>
+                        <p><?= $text_before_button ?></p>
+                      <? endif; ?>
+                      <a href="<?= $pay_link != '' ? $pay_link : '#callback' ?>" class="button button-primary <? $pay_link != '' ? '' : 'fancybox' ?>">
                         <span class="icon-cart"></span>
-                        Заказать
+                        <?= $order_button_text ?>
                       </a>
                     </div>
                   <? endif; ?>
@@ -194,9 +210,9 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
               <li data-tab="tab-1-group1" class="active">Подробнее об услуге</li>
             <? endif; ?>
             <? if (!empty($prepare_session)): ?>
-              <li data-tab="tab-2-group1" <? if (empty($service_info)): ?>class="active"<? endif; ?>>Как подготовиться</li>
+              <li data-tab="tab-2-group1" <? if (empty($service_info)): ?>class="active" <? endif; ?>>Как подготовиться</li>
             <? endif; ?>
-            <li data-tab="tab-3-group1" <? if (empty($service_info) && empty($prepare_session)): ?>class="active"<? endif; ?>>Вопросы и ответы</li>
+            <li data-tab="tab-3-group1" <? if (empty($service_info) && empty($prepare_session)): ?>class="active" <? endif; ?>>Вопросы и ответы</li>
           </ul>
 
           <div class="tabs-content">
@@ -273,7 +289,7 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
 
                   $has_discount = !empty($discount) && $discount > 0;
                   $discounted_price = $has_discount ? $price - ($price * $discount / 100) : $price;
-              ?>
+                ?>
                   <div class="swiper-slide">
                     <a href="<?= get_permalink($post_id) ?>" class="slide-image">
                       <? if ($thumbnail_id): ?>
