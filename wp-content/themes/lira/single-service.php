@@ -73,6 +73,9 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
         <div class="entry-content">
           <?= the_content(); ?>
         </div>
+		  
+		  <?=do_shortcode('[service_accordions]')?>
+		  <?=do_shortcode('[service_advantages]')?>
       </article>
 
       <aside id="sidebar-primary" class="sidebar widget-area">
