@@ -150,17 +150,43 @@ jQuery(document).ready(function ($) {
 
     // Табы
     jQuery(document).ready(function () {
-        jQuery(".tabs").each(function () {
+        // Обработчик для обычных табов (не вложенных)
+        jQuery(".tabs").not(".tab-content-col .tabs").each(function () {
             let $tabs = jQuery(this);
 
-            $tabs.find(".tabs-nav li").click(function () {
+            $tabs.find("> .tabs-nav > li").click(function () {
                 let tabId = jQuery(this).attr("data-tab");
 
-                $tabs.find(".tabs-nav li").removeClass("active");
-                $tabs.find(".tab-item").removeClass("active");
+                // Убираем активный класс только у табов внутри текущей группы
+                $tabs.find("> .tabs-nav > li").removeClass("active");
+                $tabs.find("> .tabs-content > .tab-item").removeClass("active");
 
+                // Добавляем активный класс к кликнутому табу
                 jQuery(this).addClass("active");
-                $tabs.find("#" + tabId).addClass("active");
+                // Находим контент строго внутри текущей группы табов
+                $tabs.find("> .tabs-content > #" + tabId).addClass("active");
+            });
+        });
+
+        // Отдельный обработчик для табов внутри .tab-content-col (вложенные табы видео)
+        jQuery(".tab-content-col .tabs").each(function () {
+            let $tabs = jQuery(this);
+
+            $tabs.find("> .tabs-nav > li").click(function (e) {
+                // Останавливаем всплытие события чтобы клик не влиял на родительские табы
+                e.stopPropagation();
+                e.preventDefault();
+
+                let tabId = jQuery(this).attr("data-tab");
+
+                // Убираем активный класс только у табов внутри этой группы
+                $tabs.find("> .tabs-nav > li").removeClass("active");
+                $tabs.find("> .tabs-content > .tab-item").removeClass("active");
+
+                // Добавляем активный класс к кликнутому табу
+                jQuery(this).addClass("active");
+                // Находим контент строго внутри текущей группы табов
+                $tabs.find("> .tabs-content > #" + tabId).addClass("active");
             });
         });
     });

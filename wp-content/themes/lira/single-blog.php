@@ -72,14 +72,23 @@ $recomends = get_field('recomends');
             <div class="swiper-wrapper">
               <? if ($recomends && !empty($recomends)):
                 foreach ($recomends as $post_id):
-                  $price = get_field('price', $post_id);
-                  $discount = get_field('price_discount', $post_id);
+                  $price = get_field('price', $post_id); // Цена со скидкой (текущая)
+                  $price_old = get_field('price_old', $post_id); // Цена без скидки (старая)
+
+                  // Если основная цена пустая, но есть старая цена - используем её как основную
+                  if (empty($price) && !empty($price_old)) {
+                    $price = $price_old;
+                    $price_old = '';
+                  }
+
                   $thumbnail_id = get_post_thumbnail_id($post_id);
                   $item_categories = get_the_terms($post_id, 'service_category');
                   $badges = get_the_terms($post_id, 'service_badge');
 
-                  $has_discount = !empty($discount) && $discount > 0;
-                  $discounted_price = $has_discount ? $price - ($price * $discount / 100) : $price;
+                  // Проверяем наличие скидки
+                  $has_discount = !empty($price_old) && !empty($price) && $price_old > $price;
+                  // Автоматически вычисляем процент скидки
+                  $discount_percent = $has_discount ? round((($price_old - $price) / $price_old) * 100) : 0;
               ?>
                   <div class="swiper-slide">
                     <a href="<?= get_permalink($post_id) ?>" class="slide-image">
@@ -106,7 +115,7 @@ $recomends = get_field('recomends');
                           <? endif; ?>
 
                           <? if ($has_discount): ?>
-                            <span class="slide-badge sale-badge">Скидка <?= round($discount) ?>%</span>
+                            <span class="slide-badge sale-badge">Скидка <?= $discount_percent ?>%</span>
                           <? endif; ?>
                         </div>
                         <a href="<?= get_permalink($post_id) ?>" class="slide-title"><?= get_the_title($post_id) ?></a>
@@ -116,8 +125,8 @@ $recomends = get_field('recomends');
                         <div class="slide-price">
                           <? if ($price): ?>
                             <? if ($has_discount): ?>
-                              <span class="current-price" aria-label="Текущая цена"><?= number_format($discounted_price, 0, '', ' ') ?> <span>₽</span></span>
-                              <span class="old-price"><s><?= number_format($price, 0, '', ' ') ?> <span>₽</span></s></span>
+                              <span class="current-price" aria-label="Текущая цена"><?= number_format($price, 0, '', ' ') ?> <span>₽</span></span>
+                              <span class="old-price"><s><?= number_format($price_old, 0, '', ' ') ?> <span>₽</span></s></span>
                             <? else: ?>
                               <span class="current-price" aria-label="Текущая цена"><?= number_format($price, 0, '', ' ') ?> <span>₽</span></span>
                             <? endif; ?>

@@ -2,10 +2,20 @@
 get_header();
 $benefits = get_field('benefit');
 
-$price = get_field('price');
-$discount = get_field('price_discount');
-$has_discount = !empty($discount) && $discount > 0;
-$discounted_price = $has_discount ? $price - ($price * $discount / 100) : $price;
+$price = get_field('price'); // Цена со скидкой (текущая цена)
+$price_old = get_field('price_old'); // Цена без скидки (старая цена)
+
+// Если основная цена пустая, но есть старая цена - используем её как основную
+if (empty($price) && !empty($price_old)) {
+  $price = $price_old;
+  $price_old = '';
+}
+
+// Проверяем наличие скидки: если есть старая цена и она больше текущей
+$has_discount = !empty($price_old) && !empty($price) && $price_old > $price;
+
+// Автоматически вычисляем процент скидки с округлением до единиц
+$discount_percent = $has_discount ? round((($price_old - $price) / $price_old) * 100) : 0;
 
 $desc_old = get_field('desc_old');
 
@@ -37,6 +47,17 @@ $prepare_session = get_field('prepare_session');
 
 // Проверка: есть ли контент для секции с табами
 $has_tabs_content = !empty($service_info) || !empty($prepare_session);
+
+$question_title = get_field('question_title');
+$questions = get_field('questions');
+
+$videos_title = get_field('videos_title');
+$videos_tabs = get_field('videos_tabs');
+$videos_tabs_content = get_field('videos_tabs_content');
+
+$reviews_title = get_field('reviews_title');
+$reviews_desc = get_field('reviews_desc');
+$reviews_images = get_field('reviews_images');
 ?>
 
 
@@ -71,11 +92,11 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
           </header>
         <? endif; ?>
         <div class="entry-content">
-          <?= the_content(); ?>
+          <?= $service_info; ?>
         </div>
-		  
-		  <?=do_shortcode('[service_accordions]')?>
-		  <?=do_shortcode('[service_advantages]')?>
+
+        <?= do_shortcode('[service_accordions]') ?>
+        <?= do_shortcode('[service_advantages]') ?>
       </article>
 
       <aside id="sidebar-primary" class="sidebar widget-area">
@@ -112,10 +133,10 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
                     <div class="block-price">
                       <p class="block-price-title">Стоимость в росс. рублях —</p>
                       <div class="block-price-row">
-                        <span class="price"><?= $price ?> <span><span>₽</span></span></span>
+                        <span class=""><?= number_format($price, 0, '', ' ') ?> <span><span>₽</span></span></span>
                         <? if ($has_discount): ?>
-                          <span class="sale-price">-<?= $discount ?><p>%</p></span>
-                          <s><?= $discounted_price ?> <span><span>₽</span></span></s>
+                          <span class="sale-price">-<?= $discount_percent ?><p>%</p></span>
+                          <s class="price"><?= number_format($price_old, 0, '', ' ') ?> <span><span>₽</span></span></s>
                         <? endif; ?>
                       </div>
                       <? if ($desc_old != ''): ?>
@@ -209,21 +230,30 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
       <div class="service-fullinfo__container">
         <div class="tabs" data-group="1">
           <ul class="tabs-nav">
-            <? if (!empty($service_info)): ?>
+            <? if (!empty(get_the_content())): ?>
               <li data-tab="tab-1-group1" class="active">Подробнее об услуге</li>
             <? endif; ?>
             <? if (!empty($prepare_session)): ?>
               <li data-tab="tab-2-group1" <? if (empty($service_info)): ?>class="active" <? endif; ?>>Как подготовиться</li>
             <? endif; ?>
-            <li data-tab="tab-3-group1" <? if (empty($service_info) && empty($prepare_session)): ?>class="active" <? endif; ?>>Вопросы и ответы</li>
+            <? if (!empty($question_title) || !empty($questions)) : ?>
+              <li data-tab="tab-3-group1" <? if (empty($service_info) && empty($prepare_session)): ?>class="active" <? endif; ?>>Вопросы и ответы</li>
+            <? endif; ?>
+            <? if (!empty($videos_title) || !empty($videos_tabs) || !empty($videos_tabs_content)) : ?>
+              <li data-tab="tab-4-group1" <? if (empty($service_info) && empty($prepare_session) && (!empty($question_title) || !empty($questions))): ?>class="active" <? endif; ?>>Видео</li>
+            <? endif; ?>
+            <? if (!empty($reviews_title) || !empty($reviews_images)) : ?>
+              <li data-tab="tab-5-group1" <? if (empty($service_info) && empty($prepare_session) && (!empty($question_title) || !empty($questions))): ?>class="active" <? endif; ?>>Отзывы</li>
+            <? endif; ?>
           </ul>
 
           <div class="tabs-content">
-            <? if (!empty($service_info)): ?>
+            <? if (!empty(get_the_content())): ?>
               <div id="tab-1-group1" class="tab-item active">
                 <div class="tab-content">
                   <div class="collapsible">
-                    <?= $service_info ?>
+
+                    <?= the_content(); ?>
                   </div>
                 </div>
               </div>
@@ -240,14 +270,176 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
                 </div>
               </div>
             <? endif; ?>
+            <? if (!empty($question_title) || !empty($questions)): ?>
+              <div id="tab-3-group1" class="tab-item <? if (empty($service_info) && empty($prepare_session)): ?>active<? endif; ?>">
+                <div class="tab-content">
+                  <div class="tab-content-col">
+                    <div class="faq-list">
+                      <div class="faq__title"><?= $question_title ?></div>
 
-            <div id="tab-3-group1" class="tab-item <? if (empty($service_info) && empty($prepare_session)): ?>active<? endif; ?>">
-              <div class="tab-content">
-                <div class="tab-content-col">
-                  <?= do_shortcode('[faq_section]'); ?>
+                      <div class="faq-wrapper">
+                        <? foreach ($questions as $quest): ?>
+                          <article class="faq-item">
+                            <h4 class="faq-title" id="faq1"><?= $quest['question'] ?></h4>
+                            <p><?= $quest['ansver'] ?></p>
+                          </article>
+                        <? endforeach; ?>
+                      </div>
+
+                      <a href="#callback" class="button-primary btn-medium fancybox">
+                        <span class="icon-question-r"></span>
+                        Задать свой вопрос
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            <? endif; ?>
+            <? if (!empty($videos_title) || !empty($videos_tabs) || !empty($videos_tabs_content)) : ?>
+              <div id="tab-4-group1" class="tab-item <? if (empty($service_info) && empty($prepare_session) && ((!empty($question_title) || !empty($questions)))): ?>active<? endif; ?>">
+                <div class="tab-content">
+                  <div class="tab-content-col">
+                    <?
+                    // Логика получения данных для видео (аналогично шорткоду)
+                    $current_post_id = get_the_ID();
+                    $fallback_id = 7;
+
+                    // Для каждого поля: если есть на текущей странице - берём, если нет - с главной
+                    $videos_title_display = get_field('videos_title', $current_post_id);
+                    if (empty($videos_title_display)) {
+                      $videos_title_display = get_field('videos_title', $fallback_id);
+                    }
+
+                    $videos_tabs_display = get_field('videos_tabs', $current_post_id);
+                    if (!$videos_tabs_display || empty($videos_tabs_display)) {
+                      $videos_tabs_display = get_field('videos_tabs', $fallback_id);
+                    }
+
+                    $videos_tabs_content_display = get_field('videos_tabs_content', $current_post_id);
+                    if (!$videos_tabs_content_display || empty($videos_tabs_content_display)) {
+                      $videos_tabs_content_display = get_field('videos_tabs_content', $fallback_id);
+                    }
+
+                    $videos_links_title_display = get_field('videos_links_title', $current_post_id);
+                    if (empty($videos_links_title_display)) {
+                      $videos_links_title_display = get_field('videos_links_title', $fallback_id);
+                    }
+
+                    $videos_links_display = get_field('videos_links', $current_post_id);
+                    if (!$videos_links_display || empty($videos_links_display)) {
+                      $videos_links_display = get_field('videos_links', $fallback_id);
+                    }
+                    ?>
+
+                    <? if ($videos_title_display): ?>
+                      <div class="howtovideos__title"><?= $videos_title_display ?></div>
+                    <? endif; ?>
+
+                    <? if ($videos_tabs_display && !empty($videos_tabs_display)): ?>
+                      <div class="tabs" data-group="videos">
+                        <ul class="tabs-nav">
+                          <? foreach ($videos_tabs_display as $key => $item) : ?>
+                            <li data-tab="tab-<?= $key + 1 ?>-groupvideos" class="<?= $key === 0 ? 'active' : '' ?>"><?= $item['name'] ?></li>
+                          <? endforeach ?>
+                        </ul>
+
+                        <div class="tabs-content">
+                          <? foreach ($videos_tabs_content_display as $key => $item) : ?>
+                            <div id="tab-<?= $key + 1 ?>-groupvideos" class="tab-item <?= $key === 0 ? 'active' : '' ?>">
+                              <div class="tab-content">
+                                <div class="videolist">
+                                  <? foreach ($item['frame_videos'] as $video): ?>
+                                    <div class="video-box">
+                                      <?= $video['frame_video'] ?>
+                                    </div>
+                                  <? endforeach; ?>
+                                </div>
+                              </div>
+                            </div>
+                          <? endforeach; ?>
+                        </div>
+                      </div>
+                    <? endif; ?>
+
+                    <? if ($videos_links_title_display || $videos_links_display): ?>
+                      <div class="howtovideos__info">
+                        <? if ($videos_links_title_display): ?>
+                          <div class="howtovideos__info-title"><?= $videos_links_title_display ?></div>
+                        <? endif; ?>
+                        <? if ($videos_links_display): ?>
+                          <div class="howtovideos__info-text">
+                            <? foreach ($videos_links_display as $item): ?>
+                              <a href="<?= $item['link'] ?>" class="howtovideos__info-link"><?= $item['name'] ?>
+                                <u><?= $item['link'] ?></u></a>
+                            <? endforeach; ?>
+                          </div>
+                        <? endif; ?>
+                      </div>
+                    <? endif; ?>
+                  </div>
+                </div>
+              </div>
+            <? endif; ?>
+            <? if (!empty($reviews_title) || !empty($reviews_images)) : ?>
+              <div id="tab-5-group1" class="tab-item">
+                <div class="tab-content">
+                  <div class="tab-content-col">
+                    <?
+                    // Логика получения данных для отзывов (аналогично видео)
+                    $current_post_id = get_the_ID();
+                    $fallback_id = 7;
+
+                    // Для каждого поля: если есть на текущей странице - берём, если нет - с главной
+                    $reviews_title_display = get_field('reviews_title', $current_post_id);
+                    if (empty($reviews_title_display)) {
+                      $reviews_title_display = get_field('reviews_title', $fallback_id);
+                    }
+
+                    $reviews_desc_display = get_field('reviews_desc', $current_post_id);
+                    if (empty($reviews_desc_display)) {
+                      $reviews_desc_display = get_field('reviews_desc', $fallback_id);
+                    }
+
+                    $reviews_images_display = get_field('reviews_images', $current_post_id);
+                    if (!$reviews_images_display || empty($reviews_images_display)) {
+                      $reviews_images_display = get_field('reviews_images', $fallback_id);
+                    }
+                    ?>
+
+                    <div class="reviews__heading">
+                      <? if ($reviews_title_display): ?>
+                        <div class="reviews__title"><?= $reviews_title_display ?></div>
+                      <? endif; ?>
+                      <? if ($reviews_desc_display): ?>
+                        <p><?= $reviews_desc_display ?></p>
+                      <? endif; ?>
+                    </div>
+
+                    <? if ($reviews_images_display && !empty($reviews_images_display)): ?>
+                      <div class="reviews__list">
+                        <div class="swiper reviews-slider">
+                          <div class="swiper-wrapper">
+                            <? foreach ($reviews_images_display as $item): ?>
+                              <div class="swiper-slide reviews-item">
+                                <a href="<?= wp_get_attachment_image_url($item, 'full'); ?>" class="reviews-item__img" data-fancybox="reviews">
+                                  <img src="<?= kama_thumb_src('w=255&h=327', $item); ?>" alt="review-image" width="255" height="327">
+                                </a>
+                              </div>
+                            <? endforeach; ?>
+                          </div>
+                          <div class="swiper-scrollbar"></div>
+                          <div class="swiper-pagination"></div>
+                          <div class="slider-navigation">
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                          </div>
+                        </div>
+                      </div>
+                    <? endif; ?>
+                  </div>
+                </div>
+              </div>
+            <? endif; ?>
           </div>
         </div>
       </div>
@@ -284,14 +476,23 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
             <div class="swiper services-slider">
               <div class="swiper-wrapper">
                 <? foreach ($recomends as $post_id):
-                  $price = get_field('price', $post_id);
-                  $discount = get_field('price_discount', $post_id);
+                  $price = get_field('price', $post_id); // Цена со скидкой (текущая)
+                  $price_old = get_field('price_old', $post_id); // Цена без скидки (старая)
+
+                  // Если основная цена пустая, но есть старая цена - используем её как основную
+                  if (empty($price) && !empty($price_old)) {
+                    $price = $price_old;
+                    $price_old = '';
+                  }
+
                   $thumbnail_id = get_post_thumbnail_id($post_id);
                   $item_categories = get_the_terms($post_id, 'service_category');
                   $badges = get_the_terms($post_id, 'service_badge');
 
-                  $has_discount = !empty($discount) && $discount > 0;
-                  $discounted_price = $has_discount ? $price - ($price * $discount / 100) : $price;
+                  // Проверяем наличие скидки
+                  $has_discount = !empty($price_old) && !empty($price) && $price_old > $price;
+                  // Автоматически вычисляем процент скидки
+                  $discount_percent = $has_discount ? round((($price_old - $price) / $price_old) * 100) : 0;
                 ?>
                   <div class="swiper-slide">
                     <a href="<?= get_permalink($post_id) ?>" class="slide-image">
@@ -318,7 +519,7 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
                           <? endif; ?>
 
                           <? if ($has_discount): ?>
-                            <span class="slide-badge sale-badge">Скидка <?= round($discount) ?>%</span>
+                            <span class="slide-badge sale-badge">Скидка <?= $discount_percent ?>%</span>
                           <? endif; ?>
                         </div>
                         <a href="<?= get_permalink($post_id) ?>" class="slide-title"><?= get_the_title($post_id) ?></a>
@@ -328,8 +529,8 @@ $has_tabs_content = !empty($service_info) || !empty($prepare_session);
                         <div class="slide-price">
                           <? if ($price): ?>
                             <? if ($has_discount): ?>
-                              <span class="current-price" aria-label="Текущая цена"><?= number_format($discounted_price, 0, '', ' ') ?> <span>₽</span></span>
-                              <span class="old-price"><s><?= number_format($price, 0, '', ' ') ?> <span>₽</span></s></span>
+                              <span class="current-price" aria-label="Текущая цена"><?= number_format($price, 0, '', ' ') ?> <span>₽</span></span>
+                              <span class="old-price"><s><?= number_format($price_old, 0, '', ' ') ?> <span>₽</span></s></span>
                             <? else: ?>
                               <span class="current-price" aria-label="Текущая цена"><?= number_format($price, 0, '', ' ') ?> <span>₽</span></span>
                             <? endif; ?>

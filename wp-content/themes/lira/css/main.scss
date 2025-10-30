@@ -2038,8 +2038,8 @@ button.search-button {
         }
     }
 
-
-    .tab-item {
+    // Применяем стили только к прямым дочерним элементам .tabs-content
+    > .tabs-content > .tab-item {
         display: none;
         animation: displayAnimation 0.3s ease-in-out;
 

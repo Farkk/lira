@@ -11,7 +11,11 @@
 <body <?php body_class(); ?>>
   <?
   $logo_id = get_field('logo', 'option');
+  $logo_mobile_id = get_field('logo_mobile', 'option');
+
   $logo_full = wp_get_attachment_image_url($logo_id, 'full');
+  $logo_mobile = $logo_mobile_id ? wp_get_attachment_image_url($logo_mobile_id, 'full') : $logo_full;
+
   $logo_text = get_field('logo_text', 'option');
   $phone = get_field('phone', 'option');
   $wa = get_field('link_wa', 'option');
@@ -51,10 +55,14 @@
         <div class="site-branding">
           <a href="/" class="custom-logo-link" rel="home" aria-current="page">
             <img src="<?= $logo_full ?>"
+              srcset="<?= $logo_mobile ?> 160w, <?= $logo_full ?> 320w"
+              sizes="(max-width: 1024px) 160px, 320px"
               class="custom-logo"
               alt="Lira"
               decoding="async"
-              fetchpriority="high">
+              fetchpriority="high"
+              width="320"
+              height="auto">
           </a>
         </div>
         <div class="site-description">
@@ -100,10 +108,14 @@
       <div class="site-branding">
         <a href="/" class="custom-logo-link" rel="home" aria-current="page">
           <img src="<?= $logo_full ?>"
+            srcset="<?= $logo_mobile ?> 160w, <?= $logo_full ?> 320w"
+            sizes="(max-width: 1024px) 160px, 320px"
             class="custom-logo"
             alt="Lira"
             decoding="async"
-            fetchpriority="high">
+            fetchpriority="high"
+            width="320"
+            height="auto">
         </a>
       </div>
 

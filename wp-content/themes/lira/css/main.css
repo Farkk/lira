@@ -1710,11 +1710,11 @@ button.search-button::before {
     transition: background-color 0.3s ease-in-out;
   }
 }
-.tabs .tab-item {
+.tabs > .tabs-content > .tab-item {
   display: none;
   animation: displayAnimation 0.3s ease-in-out;
 }
-.tabs .tab-item.active {
+.tabs > .tabs-content > .tab-item.active {
   display: block;
   animation: displayAnimation 0.3s ease-in-out;
 }

@@ -1,6 +1,10 @@
 <?
 $logo_id = get_field('logo', 'option');
+$logo_mobile_id = get_field('logo_mobile', 'option');
+
 $logo_full = wp_get_attachment_image_url($logo_id, 'full');
+$logo_mobile = $logo_mobile_id ? wp_get_attachment_image_url($logo_mobile_id, 'full') : $logo_full;
+
 $logo_text_footer = get_field('logo_text_footer', 'option');
 
 $phone = get_field('phone', 'option');
@@ -16,7 +20,12 @@ $end_time = trim($times[1]);
       <div class="site-footer__top-left">
         <div class="site-footer__info">
           <a href="#" class="site-footer__logo">
-            <img src="<?= $logo_full ?>" alt="Lira" width="auto" height="auto">
+            <img src="<?= $logo_full ?>"
+              srcset="<?= $logo_mobile ?> 160w, <?= $logo_full ?> 320w"
+              sizes="(max-width: 1024px) 160px, 320px"
+              alt="Lira"
+              width="320"
+              height="auto">
           </a>
           <p class="site-footer__desc"><?= $logo_text_footer ?></p>
           <a href="tel:<?= $phone ?>" class="f-tel"><?= $phone ?></a>
