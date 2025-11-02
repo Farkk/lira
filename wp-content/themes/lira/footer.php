@@ -19,13 +19,15 @@ $end_time = trim($times[1]);
     <div class="site-footer__top">
       <div class="site-footer__top-left">
         <div class="site-footer__info">
-          <a href="#" class="site-footer__logo">
-            <img src="<?= $logo_full ?>"
-              srcset="<?= $logo_mobile ?> 160w, <?= $logo_full ?> 320w"
-              sizes="(max-width: 1024px) 160px, 320px"
-              alt="Lira"
-              width="320"
-              height="auto">
+         <a href="/" class="custom-logo-link" rel="home" aria-current="page">
+            <picture>
+              <source media="(max-width: 768px)" srcset="<?= $logo_mobile ?>">
+              <img src="<?= $logo_full ?>"
+                class="custom-logo"
+                alt="Lira"
+                decoding="async"
+                fetchpriority="high">
+            </picture>
           </a>
           <p class="site-footer__desc"><?= $logo_text_footer ?></p>
           <a href="tel:<?= $phone ?>" class="f-tel"><?= $phone ?></a>

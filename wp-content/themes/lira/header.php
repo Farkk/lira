@@ -107,15 +107,14 @@
 
       <div class="site-branding">
         <a href="/" class="custom-logo-link" rel="home" aria-current="page">
-          <img src="<?= $logo_full ?>"
-            srcset="<?= $logo_mobile ?> 160w, <?= $logo_full ?> 320w"
-            sizes="(max-width: 1024px) 160px, 320px"
-            class="custom-logo"
-            alt="Lira"
-            decoding="async"
-            fetchpriority="high"
-            width="320"
-            height="auto">
+          <picture>
+            <source media="(max-width: 768px)" srcset="<?= $logo_mobile ?>">
+            <img src="<?= $logo_full ?>"
+              class="custom-logo"
+              alt="Lira"
+              decoding="async"
+              fetchpriority="high">
+          </picture>
         </a>
       </div>
 

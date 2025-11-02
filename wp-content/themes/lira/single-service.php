@@ -133,10 +133,10 @@ $reviews_images = get_field('reviews_images');
                     <div class="block-price">
                       <p class="block-price-title">Стоимость в росс. рублях —</p>
                       <div class="block-price-row">
-                        <span class=""><?= number_format($price, 0, '', ' ') ?> <span><span>₽</span></span></span>
+                        <span class="price"><?= number_format($price, 0, '', ' ') ?> <span><span>₽</span></span></span>
                         <? if ($has_discount): ?>
                           <span class="sale-price">-<?= $discount_percent ?><p>%</p></span>
-                          <s class="price"><?= number_format($price_old, 0, '', ' ') ?> <span><span>₽</span></span></s>
+                          <s class=""><?= number_format($price_old, 0, '', ' ') ?> <span><span>₽</span></span></s>
                         <? endif; ?>
                       </div>
                       <? if ($desc_old != ''): ?>
@@ -170,7 +170,7 @@ $reviews_images = get_field('reviews_images');
                       <? if ($text_before_button != ''): ?>
                         <p><?= $text_before_button ?></p>
                       <? endif; ?>
-                      <a href="<?= $pay_link != '' ? $pay_link : '#callback' ?>" class="button button-primary <? $pay_link != '' ? '' : 'fancybox' ?>">
+                      <a href="<?= $pay_link != '' ? $pay_link : '#callback' ?>" class="button button-primary <?= $pay_link != '' ? '' : 'fancybox' ?>">
                         <span class="icon-cart"></span>
                         <?= $order_button_text ?>
                       </a>
@@ -306,6 +306,7 @@ $reviews_images = get_field('reviews_images');
 
                     // Для каждого поля: если есть на текущей странице - берём, если нет - с главной
                     $videos_title_display = get_field('videos_title', $current_post_id);
+                    
                     if (empty($videos_title_display)) {
                       $videos_title_display = get_field('videos_title', $fallback_id);
                     }
@@ -314,12 +315,29 @@ $reviews_images = get_field('reviews_images');
                     if (!$videos_tabs_display || empty($videos_tabs_display)) {
                       $videos_tabs_display = get_field('videos_tabs', $fallback_id);
                     }
-
+                    
                     $videos_tabs_content_display = get_field('videos_tabs_content', $current_post_id);
-                    if (!$videos_tabs_content_display || empty($videos_tabs_content_display)) {
+
+                   $has_videos = false;
+                    if ($videos_tabs_content_display && !empty($videos_tabs_content_display)) {
+                      foreach ($videos_tabs_content_display as $item) {
+                        if (!empty($item['frame_videos'])) {
+                          foreach ($item['frame_videos'] as $video) {
+                            if (!empty($video['frame_video']) && trim($video['frame_video']) !== '') {
+                              $has_videos = true;
+                              break 2; // Выходим из обоих циклов
+                            }
+                          }
+                        }
+                      }
+                    }
+                    
+                    // Если нет видео, берем с fallback
+                    if (!$has_videos) {
                       $videos_tabs_content_display = get_field('videos_tabs_content', $fallback_id);
                     }
 
+                    
                     $videos_links_title_display = get_field('videos_links_title', $current_post_id);
                     if (empty($videos_links_title_display)) {
                       $videos_links_title_display = get_field('videos_links_title', $fallback_id);
@@ -447,13 +465,13 @@ $reviews_images = get_field('reviews_images');
   <? endif; ?>
 
   <!-- videos  -->
-  <?= do_shortcode('[videos_section]'); ?>
+  <!--<?= do_shortcode('[videos_section]'); ?>-->
 
   <!-- myservices -->
   <?= do_shortcode('[myservices_section]'); ?>
 
   <!-- reviews -->
-  <?= do_shortcode('[reviews_section]'); ?>
+  <!--<?= do_shortcode('[reviews_section]'); ?>-->
 
   <!-- contactform7 -->
   <?= do_shortcode('[getconsult_section]'); ?>
