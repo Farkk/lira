@@ -9,13 +9,32 @@
   $current_term = get_queried_object();
   ?>
 
-  <section class="blog-content">
+  <?
+  // Setup pagination
+  $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+  $args = array(
+    'post_type' => 'blog',
+    'posts_per_page' => 12,
+    'paged' => $paged,
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'blog_category',
+        'field' => 'term_id',
+        'terms' => $current_term->term_id,
+      ),
+    ),
+  );
+  $blog_query = new WP_Query($args);
+  $has_pagination = $blog_query->max_num_pages > 1;
+  ?>
+
+  <section class="blog-content"<? if (!$has_pagination): ?> style="margin-bottom: 50px;"<? endif; ?>>
     <div class="blog-content__container">
       <h1><?= esc_html($current_term->name) ?></h1>
 
       <div class="articles-list">
-        <? if (have_posts()) :
-          while (have_posts()) : the_post();
+        <? if ($blog_query->have_posts()) :
+          while ($blog_query->have_posts()) : $blog_query->the_post();
             $thumbnail_id = get_post_thumbnail_id(get_the_ID());
             $categories = get_the_terms(get_the_ID(), 'blog_category');
         ?>
@@ -56,19 +75,32 @@
         <? endif; ?>
       </div>
 
-      <? if (function_exists('the_posts_pagination')) : ?>
+      <? if ($has_pagination): ?>
         <nav class="navigation pagination" aria-label="Posts pagination">
           <h2 class="screen-reader-text">Страницы</h2>
-          <?
-          the_posts_pagination(array(
-            'mid_size' => 2,
-            'prev_text' => 'Назад',
-            'next_text' => 'Вперед',
-            'screen_reader_text' => __('Навигация по страницам'),
-          ));
-          ?>
+          <div class="nav-links">
+            <?
+            $pagination = paginate_links(array(
+              'total' => $blog_query->max_num_pages,
+              'current' => $paged,
+              'prev_text' => 'Вперед',
+              'next_text' => 'Назад',
+              'type' => 'array',
+              'end_size' => 1,
+              'mid_size' => 2,
+            ));
+
+            if ($pagination) {
+              foreach ($pagination as $link) {
+                echo $link;
+              }
+            }
+            ?>
+          </div>
         </nav>
       <? endif; ?>
+
+      <? wp_reset_postdata(); ?>
     </div>
   </section>
 
