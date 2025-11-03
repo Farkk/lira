@@ -249,6 +249,7 @@ body.topbaractive .contact-mobilemenu {
 .menu-navigation ul li.star-reviews-icon {
   gap: 8px;
   align-items: center;
+  margin-left: -18px;
 }
 .menu-navigation ul li.star-reviews-icon::before {
   content: '';

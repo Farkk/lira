@@ -19,7 +19,7 @@ $end_time = trim($times[1]);
     <div class="site-footer__top">
       <div class="site-footer__top-left">
         <div class="site-footer__info">
-         <a href="/" class="custom-logo-link" rel="home" aria-current="page">
+          <a href="/" class="custom-logo-link" rel="home" aria-current="page">
             <picture>
               <source media="(max-width: 768px)" srcset="<?= $logo_mobile ?>">
               <img src="<?= $logo_full ?>"
@@ -173,8 +173,31 @@ $end_time = trim($times[1]);
       el: '.reviews-slider .swiper-scrollbar',
       draggable: true,
     },
-
   });
+  if (document.querySelector('.service-advantages-slider')) {
+    // ADVANTAGES SLIDER
+    new Swiper('.service-advantages-slider', {
+      slidesPerView: 'auto',
+      spaceBetween: 10,
+      loop: false,
+      autoHeight: true,
+      pagination: {
+        el: '.service-advantages-slider .swiper-pagination',
+        clickable: false,
+      },
+      breakpoints: {
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 32,
+        },
+        1240: {
+          autoHeight: false,
+          enabled: false,
+          spaceBetween: 0
+        }
+      }
+    })
+  }
 </script>
 
 </body>

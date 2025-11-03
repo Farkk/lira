@@ -61,6 +61,12 @@ add_filter('wpcf7_form_elements', function ($content) {
   return str_replace('<p>', '', str_replace('</p>', '', $content));
 });
 
+function hide_default_posts_menu()
+{
+  remove_menu_page('edit.php');
+}
+add_action('admin_menu', 'hide_default_posts_menu');
+
 add_action('wpcf7_before_send_mail', 'cf7_generate_contact_links', 10, 1);
 function cf7_generate_contact_links($contact_form)
 {

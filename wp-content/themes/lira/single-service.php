@@ -74,16 +74,16 @@ $reviews_images = get_field('reviews_images');
               <? foreach ($benefits as $item): ?>
                 <div class="service-benefits__item">
                   <figure class="service-benefits__icon">
-                    <img src="<?= wp_get_attachment_image_url($item['icon'], 'full'); ?>"
-                      srcset="<?= kama_thumb_src('w=20', $item['icon']); ?> 20w,
-                      <?= kama_thumb_src('w=28', $item['icon']); ?>?> 28w" sizes="(min-width: 1240px) 28px, 20px"
-                      alt="benefit">
+                    <picture>
+                      <source media="(min-width: 1240px)" srcset="<?= kama_thumb_src('w=28', $item['icon']); ?>">
+                      <source media="(max-width: 1239px)" srcset="<?= kama_thumb_src('w=20', $item['icon']); ?>">
+                      <img src="<?= wp_get_attachment_image_url($item['icon'], 'full'); ?>" alt="benefit">
+                    </picture>
                   </figure>
                   <span class="service-benefits__text">
                     <?= $item['title'] ?>
                     <? if ($item['text'] != ''): ?>
-                      <a href="#" class="help-link"
-                        data-text="<?= $item['text'] ?>">?</a>
+                      <a href="#" class="help-link" data-text="<?= $item['text'] ?>">?</a>
                     <? endif; ?>
                   </span>
                 </div>
@@ -252,7 +252,6 @@ $reviews_images = get_field('reviews_images');
               <div id="tab-1-group1" class="tab-item active">
                 <div class="tab-content">
                   <div class="collapsible">
-
                     <?= the_content(); ?>
                   </div>
                 </div>
@@ -306,7 +305,7 @@ $reviews_images = get_field('reviews_images');
 
                     // Для каждого поля: если есть на текущей странице - берём, если нет - с главной
                     $videos_title_display = get_field('videos_title', $current_post_id);
-                    
+
                     if (empty($videos_title_display)) {
                       $videos_title_display = get_field('videos_title', $fallback_id);
                     }
@@ -315,10 +314,10 @@ $reviews_images = get_field('reviews_images');
                     if (!$videos_tabs_display || empty($videos_tabs_display)) {
                       $videos_tabs_display = get_field('videos_tabs', $fallback_id);
                     }
-                    
+
                     $videos_tabs_content_display = get_field('videos_tabs_content', $current_post_id);
 
-                   $has_videos = false;
+                    $has_videos = false;
                     if ($videos_tabs_content_display && !empty($videos_tabs_content_display)) {
                       foreach ($videos_tabs_content_display as $item) {
                         if (!empty($item['frame_videos'])) {
@@ -331,13 +330,13 @@ $reviews_images = get_field('reviews_images');
                         }
                       }
                     }
-                    
+
                     // Если нет видео, берем с fallback
                     if (!$has_videos) {
                       $videos_tabs_content_display = get_field('videos_tabs_content', $fallback_id);
                     }
 
-                    
+
                     $videos_links_title_display = get_field('videos_links_title', $current_post_id);
                     if (empty($videos_links_title_display)) {
                       $videos_links_title_display = get_field('videos_links_title', $fallback_id);

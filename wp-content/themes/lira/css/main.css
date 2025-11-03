@@ -1671,6 +1671,9 @@ button.search-button::before {
     margin-top: 35px;
   }
 }
+.modal-content textarea {
+  max-height: 150px;
+}
 
 .tabs .tabs-nav {
   list-style: none;
