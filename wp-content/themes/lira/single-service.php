@@ -253,28 +253,26 @@ $reviews_images = get_field('reviews_images');
                 <div class="tab-content">
                   <div class="collapsible">
                     <?
-                    // Получаем контент
-                    $content = get_the_content();
+                    // Получаем отформатированный контент
+                    $content = apply_filters('the_content', get_the_content());
 
-                    // Проверяем наличие <!--more-->
-                    if (strpos($content, '<!--more-->') !== false) {
-                      // Разделяем контент на части
-                      $parts = explode('<!--more-->', $content, 2);
-
-                      // Применяем форматирование WordPress к каждой части
-                      $before_more = apply_filters('the_content', $parts[0]);
-                      $after_more = apply_filters('the_content', $parts[1]);
+                    // Проверяем наличие <span id="more-{ID}"></span>
+                    if (preg_match('/<span id="more-\d+"><\/span>/', $content)) {
+                      // Разделяем контент по more тегу
+                      $parts = preg_split('/<span id="more-\d+"><\/span>/', $content, 2);
 
                       // Выводим контент до more
-                      echo $before_more;
+                      echo $parts[0];
 
                       // Оборачиваем контент после more в div
-                      echo '<div class="collapsible-hide">';
-                      echo $after_more;
-                      echo '</div>';
+                      if (isset($parts[1])) {
+                        echo '<div class="collapsible-hide">';
+                        echo $parts[1];
+                        echo '</div>';
+                      }
                     } else {
                       // Если нет more, выводим весь контент как обычно
-                      the_content();
+                      echo $content;
                     }
                     ?>
                   </div>
