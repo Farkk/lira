@@ -251,31 +251,31 @@ $reviews_images = get_field('reviews_images');
             <? if (!empty(get_the_content())): ?>
               <div id="tab-1-group1" class="tab-item active">
                 <div class="tab-content">
-                  <div class="collapsible">
-                    <?
-                    // Получаем отформатированный контент
-                    $content = apply_filters('the_content', get_the_content());
+                  <?
+                  // Получаем отформатированный контент
+                  $content = apply_filters('the_content', get_the_content());
 
-                    // Проверяем наличие <span id="more-{ID}"></span>
-                    if (preg_match('/<span id="more-\d+"><\/span>/', $content)) {
-                      // Разделяем контент по more тегу
-                      $parts = preg_split('/<span id="more-\d+"><\/span>/', $content, 2);
+                  // Проверяем наличие <span id="more-{ID}"></span>
+                  if (preg_match('/<span id="more-\d+"><\/span>/', $content)) {
+                    echo '<div class="collapsible">';
+                    // Разделяем контент по more тегу
+                    $parts = preg_split('/<span id="more-\d+"><\/span>/', $content, 2);
 
-                      // Выводим контент до more
-                      echo $parts[0];
+                    // Выводим контент до more
+                    echo $parts[0];
 
-                      // Оборачиваем контент после more в div
-                      if (isset($parts[1])) {
-                        echo '<div class="collapsible-hide">';
-                        echo $parts[1];
-                        echo '</div>';
-                      }
-                    } else {
-                      // Если нет more, выводим весь контент как обычно
-                      echo $content;
+                    // Оборачиваем контент после more в div
+                    if (isset($parts[1])) {
+                      echo '<div class="collapsible-hide">';
+                      echo $parts[1];
+                      echo '</div>';
                     }
-                    ?>
-                  </div>
+                    echo '</div>';
+                  } else {
+                    // Если нет more, выводим весь контент как есть
+                    the_content();
+                  }
+                  ?>
                 </div>
               </div>
             <? endif; ?>
